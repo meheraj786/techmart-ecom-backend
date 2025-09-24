@@ -19,7 +19,6 @@ exports.sendMail = async (to, subject, otp) => {
         <h1 style="text-align: center; background: #4CAF50; color: white; padding: 10px; border-radius: 8px;">
           ${otp}
         </h1>
-        <p style="font-size: 14px; color: #555;">This code will expire in 10 minutes. Please do not share it with anyone.</p>
         <p style="margin-top: 20px; font-size: 14px; color: #777;">Best Regards,<br/>Techmart Team</p>
       </div>
     `;

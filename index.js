@@ -7,6 +7,7 @@ const app = express();
 
 (async () => {
   try {
+    app.use(express.json())
     const port = process.env.PORT;
     app.use(router);
     app.listen(port, () => console.log("Server is running"));
