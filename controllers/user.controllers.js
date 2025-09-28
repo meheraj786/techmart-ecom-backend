@@ -47,7 +47,7 @@ exports.createUser = async (req, res) => {
       password: hashedPassword,
       emailVerify:false,
       otp,
-      otpExpire: new Date(Date.now()+)
+      otpExpire: new Date(Date.now() + 10 * 60 * 1000)
     });
 
     await newUser.save();
