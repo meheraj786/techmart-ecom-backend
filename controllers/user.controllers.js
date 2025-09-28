@@ -21,7 +21,7 @@ exports.createUser = async (req, res) => {
       return res.json({ error: "Invalid email format" });
     }
 
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{6,}$/;
     if (!passwordRegex.test(password)) {
       return res.json({
         error:
