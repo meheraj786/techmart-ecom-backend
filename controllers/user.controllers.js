@@ -28,6 +28,7 @@ exports.createUser = async (req, res) => {
           "Password must be at least 6 characters and contain letters & numbers",
       });
     }
+  
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
