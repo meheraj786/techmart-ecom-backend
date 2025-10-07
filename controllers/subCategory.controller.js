@@ -1,4 +1,6 @@
-const Subcategory =require('../models/subCategory.model')
+const Subcategory =require('../models/Subcategory.model');
+const { ApiError } = require('../utils/ApiError');
+const { ApiResponse } = require('../utils/ApiResponse');
 
 exports.createSubCategory = async (req, res) => {
   try {
@@ -21,5 +23,42 @@ exports.createSubCategory = async (req, res) => {
       message: "Something went wrong",
       error: error.message,
     });
+  }
+};
+
+exports.getAllSubCategory = async (req, res) => {
+  try {
+    const allCategories= await Subcategory.find({}).populate("category")
+    res.status(201).json(new ApiResponse(allCategories))
+  } catch (error) {
+    res.json(new ApiError(400))
+  }
+};
+exports.getSingleSubCategory = async (req, res) => {
+  try {
+    const {id}=req.params
+    const subCategory= await Subcategory.findOne({_id:id}).populate("category")
+    res.status(201).json(new ApiResponse(subCategory))
+  } catch (error) {
+    res.json(new ApiError(400))
+  }
+};
+exports.updateSingleSubCategory = async (req, res) => {
+  try {
+    const {id}=req.params
+    const {name, description}=req.body
+    const subCategory= await Subcategory.findOneAndUpdate({_id:id},{name, description}, {new: true}).populate("category")
+    res.status(201).json(new ApiResponse(subCategory))
+  } catch (error) {
+    res.json(new ApiError(400))
+  }
+};
+exports.deleteSingleSubCategory = async (req, res) => {
+  try {
+    const {id}=req.params
+    const subCategory= await Subcategory.findOneAndDelete({_id:id}).populate("category")
+    res.status(201).json(new ApiResponse(subCategory))
+  } catch (error) {
+    res.json(new ApiError(400))
   }
 };
