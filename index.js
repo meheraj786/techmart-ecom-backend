@@ -4,10 +4,12 @@ const router = require("./routes");
 const { dbConnect } = require("./database/dbConnect");
 const routeError = require("./middleware/404errorHandler");
 const app = express();
+const path = require("path");
 
 (async () => {
   try {
-    app.use(express.json())
+    app.use(express.static(path.join(__dirname, "public/temp")));
+    app.use(express.json());
     const port = process.env.PORT;
     app.use(router);
     app.listen(port, () => console.log("Server is running"));
