@@ -40,6 +40,36 @@ exports.createProduct = async (req, res) => {
     res.status(201).json(new ApiResponse(product, "Product created successfully!"))
   } catch (error) {
     console.error("Error creating product:", error);
-    res.status(500).json(new ApiError());
+    res.status(500).json(new ApiError(error.message));
+  }
+};
+
+exports.allProducts = async (req, res) => {
+  try {
+    const products = await Product.find()
+      .populate("category", "name") 
+      .populate("subcategory", "name") 
+      .sort({ name: 1 }); 
+
+    if (!products || products.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No products found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      total: products.length,
+      products,
+    });
+
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({
+      success: false,
+      message: "Something went wrong while fetching products",
+      error: error.message,
+    });
   }
 };
