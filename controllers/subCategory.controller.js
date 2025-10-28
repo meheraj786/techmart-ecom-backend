@@ -1,4 +1,5 @@
-const Subcategory =require('../models/Subcategory.model');
+
+const Subcategory = require('../models/subCategory.model');
 const { ApiError } = require('../utils/ApiError');
 const { ApiResponse } = require('../utils/ApiResponse');
 
